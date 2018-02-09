@@ -40,7 +40,6 @@ async function populateData() {
     const third = type.shift();
 
     const loan = await Loan.create({
-      _id: count,
       name: `${first} ${second} ${third}`,
     });
 
@@ -59,21 +58,21 @@ async function populateData() {
           loan_id: loan._id,
           seq_id: seq,
           created_at: transactionDate,
-          type: 'repayment',
+          type: 'REPAYMENT',
         });
       } else if ((count < 666 && seq < transactionCount / 2) || (count >= 666 && seq >= transactionCount / 2)) {
         await Transaction.create({
           loan_id: loan._id,
           seq_id: seq,
           created_at: transactionDate,
-          type: 'repayment',
+          type: 'REPAYMENT',
         });
       } else if ((count < 666 && seq > transactionCount / 2) || (count >= 666 && seq <= transactionCount / 2)) {
         await Transaction.create({
           loan_id: loan._id,
           seq_id: seq,
           created_at: transactionDate,
-          type: 'repayment_reversed',
+          type: 'REPAYMENT_REVERSED',
         });
       }
       seq += 1;
@@ -83,12 +82,15 @@ async function populateData() {
 }
 
 
-export default function () {
-  Loan.count().exec(async (err, count) => {
+export default async function () {
+  try {
+    const count = await Loan.count().exec();
     if (count > 0) {
       return;
     }
 
     await populateData();
-  }).then();
+  } catch (err) {
+    console.log(err);
+  }
 }

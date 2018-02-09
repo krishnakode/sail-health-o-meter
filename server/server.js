@@ -9,6 +9,7 @@ import webpack from 'webpack';
 import config from '../webpack.config.dev';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
+import dummyData from './dummyData';
 
 // Initialize the Express App
 const app = new Express();
@@ -47,6 +48,7 @@ mongoose.connect(serverConfig.mongoURL, (error) => {
     console.error('Please make sure Mongodb is installed and running!'); // eslint-disable-line no-console
     throw error;
   }
+  dummyData();
 });
 
 // Apply body Parser and server public assets and routes
