@@ -47,9 +47,9 @@ async function populateData() {
     type.push(third);
 
     let transactionCount = getRandomWeeks();
-    const today = new Date();
     let seq = 0;
     while (transactionCount !== 0) {
+      const today = new Date();
       const transactionDate = new Date(today.setTime(today.getTime() + (7 * seq) * 86400000));
       if (count < 333) {
         await Transaction.create({
