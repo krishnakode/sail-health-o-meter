@@ -50,7 +50,7 @@ async function populateData() {
     const today = new Date();
     let seq = 0;
     while (transactionCount !== 0) {
-      let transactionDate = new Date(today.setTime(today.getTime() + (7 * seq) * 86400000));
+      const transactionDate = new Date(today.setTime(today.getTime() + (7 * seq) * 86400000));
       if (count < 333) {
         await Transaction.create({
           loan_id: loan._id,
@@ -70,7 +70,7 @@ async function populateData() {
           loan_id: loan._id,
           seq_id: seq,
           created_at: transactionDate,
-          type: 'REPAYMENT_REVERSED',
+          type: 'REPAYMENT_DECLINED',
         });
       }
       seq++;
