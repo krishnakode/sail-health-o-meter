@@ -20,9 +20,7 @@ const adjective = [
 ];
 const type = [
   'Pizzeria',
-  'Constructions',
   'Pub',
-  'Plumbing',
   'Bakery',
   'Cafe',
 ];
@@ -50,9 +48,9 @@ async function populateData() {
 
     let transactionCount = getRandomWeeks();
     const today = new Date();
+    let seq = 0;
     while (transactionCount !== 0) {
-      let seq = 0;
-      const transactionDate = new Date(today.setTime(today.getTime() + (7 * seq) * 86400000));
+      let transactionDate = new Date(today.setTime(today.getTime() + (7 * seq) * 86400000));
       if (count < 333) {
         await Transaction.create({
           loan_id: loan._id,
@@ -75,8 +73,8 @@ async function populateData() {
           type: 'REPAYMENT_REVERSED',
         });
       }
-      seq += 1;
-      transactionCount -= 1;
+      seq++;
+      transactionCount--;
     }
   }
 }
